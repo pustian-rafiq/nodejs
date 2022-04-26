@@ -18,10 +18,14 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 //Declare the routers
 
-app.use(adminRoutes)
+app.use("/admin",adminRoutes)
 app.use(shopRoutes)
 
-
+//Handle worng routes
+// When we don't use any route like '/', it controlls all the request like get abd post
+app.use((req,res,next)=> {
+    res.status(404).send("<h1>404 Page was not found!!</h1>")
+})
 //const  server = http.createServer(app)
 port = 5000
 app.listen(5000,()=> {
