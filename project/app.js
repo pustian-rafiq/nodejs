@@ -1,9 +1,13 @@
 const http = require('http');
 const express = require('express');
-
 const app = express()
+
+//Import routes
+const adminRoutes = require('./routes/admin')
+const shopRoutes = require('./routes/shop')
+
+
 const bodyParser = require('body-parser');
-const { urlencoded } = require('body-parser');
 
 
 // One middleware allows the request to continue the nest middleware line
@@ -11,17 +15,13 @@ const { urlencoded } = require('body-parser');
 
 app.use(bodyParser.urlencoded({extended: false}))
 
-app.use('/add-product',(req,res,next)=> {
-    res.send("<form action='/product' method='POST'><input type='text' name='title' > <button type='submit'>Submit</button></form>")
-})
-app.use('/product',(req,res,next)=> {
-    console.log(req.body)
-    res.redirect('/')
-})
 
-app.use('/',(req,res,next)=> {
-    res.send("This is power of express js")
-})
+//Declare the routers
+
+app.use(adminRoutes)
+app.use(shopRoutes)
+
+
 //const  server = http.createServer(app)
 port = 5000
 app.listen(5000,()=> {
