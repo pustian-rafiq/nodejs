@@ -1,7 +1,7 @@
 const http = require('http');
 const express = require('express');
 const app = express()
-
+const path = require('path')
 //Import routes
 const adminRoutes = require('./routes/admin')
 const shopRoutes = require('./routes/shop')
@@ -15,6 +15,8 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({extended: false}))
 
+//Use static middleware for static file
+app.use(express.static(path.join(__dirname,'public')))
 
 //Declare the routers
 
